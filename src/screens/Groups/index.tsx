@@ -1,11 +1,10 @@
-import { Container, Title } from './styles';
+import { Container } from './styles';
+import { Loading } from '@components/Loading'; // ajuste o caminho conforme sua estrutura
 
 export function Groups() {
   return (
     <Container>
-      <Title>
-        Groups
-      </Title>
+      <Loading />
     </Container>
   );
 }

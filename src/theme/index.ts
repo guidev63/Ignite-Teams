@@ -13,11 +13,11 @@ export default {
     GRAY_200: '#C4C4CC',
     GRAY_100: '#E1E1E6',
   },
-  FONTS_FAMILY: { // <- mudou para FONTS_FAMILY
+  FONTS_FAMILY: {
     REGULAR: 'Roboto_400Regular',
     BOLD: 'Roboto_700Bold',
   },
-  FONTS_SIZE: { // <- mudou para FONTS_SIZE
+  FONTS_SIZE: {
     SM: 14,
     MD: 16,
     LG: 18,

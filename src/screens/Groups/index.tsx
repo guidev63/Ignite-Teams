@@ -6,7 +6,7 @@ import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
 import { GroupCard } from '@components/GroupCard';
 import { Loading } from '@components/Loading'; // ajuste o caminho conforme sua estrutura
-import { Container } from './styles';
+import { Container } from "./styles";
 
 export function Groups() {
   
@@ -18,7 +18,6 @@ export function Groups() {
         title="Turmas"
         subtitle="Jogue com a sua turma"
       />
-
       <FlatList
         data={groups}
         keyExtractor={(item) => item}
@@ -27,12 +26,14 @@ export function Groups() {
         )}
           contentContainerStyle={groups.length === 0 && {flex:1}}
         ListEmptyComponent={() => (
-          <ListEmpty message="Que tal cadastrar a primeira turma?" />
+          <ListEmpty message="Que tal cadastrar a primeira turma?" 
+          />
         )}
-      
+        showsHorizontalScrollIndicator={false}
       />
+
       <Button
-      title='Criar Nova Turma'
+      title="Criar Nova Turma"
       />
     </Container>
   );

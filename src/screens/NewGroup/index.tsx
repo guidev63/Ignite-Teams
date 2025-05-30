@@ -8,10 +8,9 @@ import { useNavigation } from '@react-navigation/native';
 
 export function NewGroup() {
   const [group, setGroup] = useState(''); 
-  
   const navigation = useNavigation();
  function handleNew(){
-navigation.navigate('players' , { group });
+navigation.navigate('players',{group});
  }
 
   return (

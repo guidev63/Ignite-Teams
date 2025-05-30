@@ -21,13 +21,13 @@ export function Players() {
 
     const route = useRoute();
 
-    const {group} = route.params as RouteParams
+    const { group } = route.params as RouteParams
     return (
         <Container>
             <Header showBackButton />
             <Highlight
                 title={group}
-                subtitle="Adicione e Separe os Times"
+                subtitle="Adicione A Galera e separe os Times"
             />
 
             <Form>

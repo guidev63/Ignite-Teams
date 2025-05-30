@@ -26,7 +26,7 @@ export function Players() {
         <Container>
             <Header showBackButton />
             <Highlight
-                title={route.params.group}
+                title={group}
                 subtitle="Adicione A Galera e Separe os Times"
             />
 

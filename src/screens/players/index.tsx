@@ -1,5 +1,5 @@
 import { Header } from '@components/Header';
-import { Container, Form, HeaderList, NumberOfPlayers } from './styles';
+import { Container, Form, HeaderList, NumberOfPlayers} from './styles';
 import { Highlight } from '@components/Highlight';
 import { ButtonIcon } from '@components/ButtonIcon';
 import { Input } from '@components/input/input';
@@ -26,8 +26,8 @@ export function Players() {
         <Container>
             <Header showBackButton />
             <Highlight
-                title={group}
-                subtitle="Adicione A Galera e separe os Times"
+                title={route.params.group}
+                subtitle="Adicione A Galera e Separe os Times"
             />
 
             <Form>

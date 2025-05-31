@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Alert } from 'react-native';
 import { Highlight } from '@components/Highlight';
 import { Container, Content, Icon } from './styles';
 import { Header } from '@components/Header';
@@ -11,6 +12,10 @@ export function NewGroup() {
   const navigation = useNavigation();
   
   function handleNew() {
+    if (group.trim().length === 0) {
+      return Alert.alert('Novo Grupo', 'Informe o nome da turma!');
+    }
+    
     navigation.navigate('players', { group });
   }
 
@@ -36,6 +41,7 @@ export function NewGroup() {
           title="Criar"
           style={{ marginTop: 20 }}
           onPress={handleNew}
+          disabled={group.trim().length === 0}
         />
       </Content>
     </Container>

@@ -32,7 +32,7 @@ export function Players() {
 
             <Form>
                 <Input
-                    placeholder="Nome da Pessoa"
+                    placeholder="Nome Da Pessoa"
                     autoCorrect={false}
                 />
                 <ButtonIcon
@@ -69,7 +69,7 @@ export function Players() {
 
                 ListEmptyComponent={() => (
                     <ListEmpty
-                        message="Não há pessoas nesse time" />
+                        message="Não há Pessoas nesse Time" />
                 )}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={[

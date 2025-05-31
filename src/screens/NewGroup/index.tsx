@@ -9,9 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 export function NewGroup() {
   const [group, setGroup] = useState(''); 
   const navigation = useNavigation();
- function handleNew(){
-  navigation.navigate('players',{group});
- }
+  
+  function handleNew() {
+    navigation.navigate('players', { group });
+  }
 
   return (
     <Container>
@@ -28,6 +29,7 @@ export function NewGroup() {
         <Input
           placeholder="Nome da Turma"
           onChangeText={setGroup}
+          value={group}
         />
 
         <Button

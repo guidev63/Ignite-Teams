@@ -12,19 +12,21 @@ import { Button } from '@components/Button';
 import { useRoute } from '@react-navigation/native';
 
 type RouteParams = {
-    group:string;
+    group: string;
 }
 
 export function Players() {
     const [team, setTeam] = useState('Time A');
     const [players, setPlayers] = useState([]);
+    const [newPlayerName, setNewPlayerName] = useState('');
 
     const route = useRoute();
+    const { group } = route.params as RouteParams;
 
-    const { group } = route.params as RouteParams
     return (
         <Container>
             <Header showBackButton />
+            
             <Highlight
                 title={group}
                 subtitle="Adicione A Galera e Separe os Times"
@@ -34,11 +36,20 @@ export function Players() {
                 <Input
                     placeholder="Nome da Pessoa"
                     autoCorrect={false}
+                    onChangeText={setNewPlayerName}
+                    value={newPlayerName}
                 />
                 <ButtonIcon
                     icon="add"
+                    onPress={() => {
+                        if (newPlayerName.trim().length > 0) {
+                            setPlayers(prev => [...prev, newPlayerName]);
+                            setNewPlayerName('');
+                        }
+                    }}
                 />
             </Form>
+
             <HeaderList>
                 <FlatList
                     data={['Time A', 'Time B', 'Time C']}
@@ -59,27 +70,30 @@ export function Players() {
 
             <FlatList
                 data={players}
-                keyExtractor={(item) => item}
+                keyExtractor={(item, index) => `${item}-${index}`}
                 renderItem={({ item }) => (
                     <PlayerCard
                         name={item}
-                        onRemove={() => { }}
+                        onRemove={() => {
+                            setPlayers(prev => prev.filter(player => player !== item));
+                        }}
                     />
                 )}
-
                 ListEmptyComponent={() => (
                     <ListEmpty
-                        message="Não há pessoas nesse time" />
+                        message="Não há pessoas nesse time" 
+                    />
                 )}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={[
-                    {paddingBottom: 100 },
+                    { paddingBottom: 100 },
                     players.length === 0 && { flex: 1 }
                 ]}
             />
+
             <Button
-             title="Remover Turma"
-              type="SECONDARY"
+                title="Remover Turma"
+                type="SECONDARY"
             />
         </Container>
     );

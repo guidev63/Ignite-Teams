@@ -3,4 +3,5 @@ import { GROUP_COLLECTION } from "../storageConfig";
 
 export async function groupsGetAll(){
     
+    const storage = await AsyncStorage.getItem(GROUP_COLLECTION);
 }

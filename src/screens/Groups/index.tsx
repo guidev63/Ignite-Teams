@@ -5,7 +5,7 @@ import { ListEmpty } from '@components/ListEmpty';
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
 import { GroupCard } from '@components/GroupCard';
-import { Loading } from '@components/Loading'; 
+import { Loading } from '@components/Loading';
 import { Container } from "./styles";
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,6 +15,10 @@ export function Groups() {
   const navigation = useNavigation();
   function handleNewGroup() {
     navigation.navigate('newGroup');
+  }
+
+  async function fetch{
+
   }
 
   return (

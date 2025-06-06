@@ -10,12 +10,20 @@ import { groupCreate } from 'src/Storage/group/groupCreate';
 export function NewGroup() {
 
 
-  const [group, setGroup] = useState(''); 
+  const [group, setGroup] = useState('');
   const navigation = useNavigation();
- async  function handleNew(){
-  await groupCreate(group)
-  navigation.navigate('players',{group});
- }
+  async function handleNew() {
+
+    try {
+      
+    await groupCreate(group)
+    navigation.navigate('players', { group });
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
 
 
 

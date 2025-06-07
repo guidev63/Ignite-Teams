@@ -23,7 +23,8 @@ export function Groups() {
   async function fetchGroups() {
     try {
       const data = await groupsGetAll();
-      setGroups(data);
+      const uniqueData = Array.from(new Set(data));
+      setGroups(uniqueData);
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +46,7 @@ export function Groups() {
       />
       <FlatList
         data={groups}
-        keyExtractor={(item) => item}
+        keyExtractor={(item, index) => `${item}-${index}`} // garante chave única
         renderItem={({ item }) => (
           <GroupCard title={item} />
         )}

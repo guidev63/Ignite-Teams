@@ -28,7 +28,9 @@ export function Groups() {
     }
 
   }
+useEffect (()=>{
 
+},[]);
   return (
     <Container>
       <Header />

@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { FlatList, Alert } from 'react-native';
+ import { useState, useCallback } from 'react';
+import { FlatList } from 'react-native';
 import { Button } from '@components/Button';
 import { ListEmpty } from '@components/ListEmpty';
 import { Header } from '@components/Header';
@@ -12,9 +12,9 @@ import { groupsGetAll } from 'src/Storage/group/groupsGetAll';
 import { Filter } from '@components/Filter';
 
 export function Groups() {
+
   const [groups, setGroups] = useState<string[]>([]);
   const navigation = useNavigation();
-
   function handleNewGroup() {
     navigation.navigate('newGroup');
   }
@@ -22,32 +22,21 @@ export function Groups() {
   async function fetchGroups() {
     try {
       const data = await groupsGetAll();
-
-      const initialGroups = ['Rocket', 'Ignite'];
-      const normalizedData = data.map(item => item.trim().toLowerCase());
-
-      const mergedGroups = [
-        ...initialGroups.filter(
-          group => !normalizedData.includes(group.toLowerCase())
-        ),
-        ...data
-      ];
-
-      const uniqueGroups = Array.from(new Set(mergedGroups));
-      setGroups(uniqueGroups);
+      setGroups(data);
 
     } catch (error) {
-      console.log("Erro ao buscar grupos:", error);
-      Alert.alert("Erro", "Não foi possível carregar os grupos.");
+      console.log(error);
     }
   }
 
-  useFocusEffect(
-    useCallback(() => {
-      console.log("Use Effect executou");
-      fetchGroups();
-    }, [])
-  );
+
+ useFocusEffect(
+  useCallback(() => {
+    console.log("Use Effect executou");
+    fetchGroups();
+  }, [])
+);
+
 
   return (
     <Container>
@@ -58,16 +47,18 @@ export function Groups() {
       />
       <FlatList
         data={groups}
-        keyExtractor={(item, index) => `${item}-${index}`}
+        keyExtractor={(item) => item}
         renderItem={({ item }) => (
           <GroupCard title={item} />
         )}
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={() => (
-          <ListEmpty message="Que tal cadastrar a primeira turma?" />
+          <ListEmpty message="Que tal cadastrar a primeira turma?"
+          />
         )}
         showsHorizontalScrollIndicator={false}
       />
+
       <Button
         title="Criar Nova Turma"
         onPress={handleNewGroup}

@@ -1,4 +1,4 @@
-import { useState ,useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { Button } from '@components/Button';
 import { ListEmpty } from '@components/ListEmpty';
@@ -9,6 +9,7 @@ import { Loading } from '@components/Loading';
 import { Container } from "./styles";
 import { useNavigation } from '@react-navigation/native';
 import { groupsGetAll } from 'src/Storage/group/groupsGetAll';
+import { Filter } from '@components/Filter';
 
 export function Groups() {
 
@@ -18,19 +19,21 @@ export function Groups() {
     navigation.navigate('newGroup');
   }
 
-  async function fetchGroup(){
+  async function fetchGroups() {
     try {
-       const data =  await groupsGetAll();
-       setGroups(data);
+      const data = await groupsGetAll();
+      setGroups(data);
 
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-
   }
-useEffect (()=>{
+   
+  useEffect(() => {
+    console.log("Use Effect executou")
+    fetchGroups();
+  }, []);
 
-},[]);
   return (
     <Container>
       <Header />

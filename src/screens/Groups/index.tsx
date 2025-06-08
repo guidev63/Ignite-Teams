@@ -1,68 +1,62 @@
- import { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { FlatList } from 'react-native';
-import { Button } from '@components/Button';
-import { ListEmpty } from '@components/ListEmpty';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
 import { GroupCard } from '@components/GroupCard';
-import { Loading } from '@components/Loading';
-import { Container } from "./styles";
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { groupsGetAll } from 'src/Storage/group/groupsGetAll';
-import { Filter } from '@components/Filter';
+import { ListEmpty } from '@components/ListEmpty';
+import { Button } from '@components/Button';
+
+import { groupsGetAll } from '@storage/group/groupsGetAll';
+
+import * as S from './styles';
 
 export function Groups() {
-
   const [groups, setGroups] = useState<string[]>([]);
   const navigation = useNavigation();
+
   function handleNewGroup() {
-    navigation.navigate('newGroup');
+    navigation.navigate('new');
+  }
+
+  function handleOpenGroup(group: string) {
+    navigation.navigate('players', { group });
   }
 
   async function fetchGroups() {
     try {
       const data = await groupsGetAll();
       setGroups(data);
-
     } catch (error) {
       console.log(error);
     }
   }
 
-
- useFocusEffect(
-  useCallback(() => {
-    console.log("Use Effect executou");
-    fetchGroups();
-  }, [])
-);
-
+  useFocusEffect(
+    useCallback(() => {
+      fetchGroups();
+    }, [])
+  );
 
   return (
-    <Container>
+    <S.Container>
       <Header />
-      <Highlight
-        title="Turmas"
-        subtitle="Jogue com a sua turma"
-      />
+      <Highlight title="Turmas" subtitle="Jogue com a sua turma" />
+
       <FlatList
         data={groups}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item} // <- IMPORTANTE: garantir chave única!
         renderItem={({ item }) => (
-          <GroupCard title={item} />
+          <GroupCard title={item} onPress={() => handleOpenGroup(item)} />
         )}
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={() => (
-          <ListEmpty message="Que tal cadastrar a primeira turma?"
-          />
+          <ListEmpty message="Que tal cadastrar a primeira turma?" />
         )}
-        showsHorizontalScrollIndicator={false}
       />
 
-      <Button
-        title="Criar Nova Turma"
-        onPress={handleNewGroup}
-      />
-    </Container>
+      <Button title="Criar nova turma" onPress={handleNewGroup} />
+    </S.Container>
   );
 }

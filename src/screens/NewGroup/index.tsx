@@ -19,7 +19,7 @@ export function NewGroup() {
     try {
       
     await groupCreate(group)
-    navigation.navigate('players', { group });
+    navigation.navigate('players',{ group });
 
     } catch (error) {
            if(error instanceof AppError){

@@ -114,7 +114,7 @@ export function Players() {
           />
         )}
         ListEmptyComponent={() => (
-          <ListEmpty message="Não há pessoas nesse time." />
+          <ListEmpty message="Não Há Pessoas nesse Time." />
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[

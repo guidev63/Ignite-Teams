@@ -46,7 +46,7 @@ export function Groups() {
       <Header />
       <Highlight
         title="Turmas"
-        subtitle="Jogue com a sua turma"
+        subtitle="Jogue com a Sua Turma"
       />
 
       <FlatList
@@ -60,7 +60,7 @@ export function Groups() {
         )}
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={() => (
-          <ListEmpty message="Que tal cadastrar a primeira turma?" />
+          <ListEmpty message="Que Tal Cadastrar a Primeira Yurma?" />
         )}
         showsHorizontalScrollIndicator={false}
       />

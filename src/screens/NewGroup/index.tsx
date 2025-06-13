@@ -27,7 +27,7 @@ export function NewGroup() {
       if (error instanceof AppError) {
         Alert.alert('Novo Grupo', error.message);
       } else {
-        Alert.alert('Novo Grupo', 'Não foi possível criar um novo grupo.');
+        Alert.alert('Novo Grupo', 'Não foi Possível criar um novo Grupo.');
       }
       console.log(error);
     }
@@ -42,11 +42,11 @@ export function NewGroup() {
 
         <Highlight
           title="Nova Turma"
-          subtitle="Crie a turma para Adicionar as Pessoas"
+          subtitle="Crie a Turma para Adicionar as Pessoas"
         />
 
         <Input
-          placeholder="Nome da Turma"
+          placeholder="Nome Da Turma"
           onChangeText={setGroup}
         />
 

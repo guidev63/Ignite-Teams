@@ -4,7 +4,6 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/theme';
 import { Loading } from '@components/Loading';
 import { Routes } from './src/routes';
-import { Groups } from '@screens/Groups';
 
 
 export default function App() {

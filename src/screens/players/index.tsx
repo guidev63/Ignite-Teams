@@ -29,7 +29,7 @@ export function Players() {
 
   async function handleAddPlayer() {
     if (newPlayerName.trim().length === 0) {
-      return Alert.alert('Nova Pessoa', 'Informe o nome da pessoa para adicionar.');
+      return Alert.alert('Nova Pessoa', 'Informe o nome da Pessoa para Adicionar.');
     }
 
     const newPlayer = {
@@ -40,13 +40,13 @@ export function Players() {
     try {
       await playerAddByGroup(newPlayer, group);
       setNewPlayerName('');
-      fetchPlayersByTeam(); // atualiza lista após adicionar
+      fetchPlayersByTeam(); 
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert('Nova Pessoa', error.message);
       } else {
         console.log(error);
-        Alert.alert('Nova Pessoa', 'Não foi possível adicionar.');
+        Alert.alert('Nova Pessoa', 'Não foi Possível Adicionar.');
       }
     }
   }
@@ -57,7 +57,7 @@ export function Players() {
       setPlayers(playersByTeam);
     } catch (error) {
       console.log(error);
-      Alert.alert('Pessoas', 'Não foi possível carregar as pessoas do time selecionado.');
+      Alert.alert('Pessoas', 'Não Foi possível Carregar as pessoas do time Selecionado.');
     }
   }
 

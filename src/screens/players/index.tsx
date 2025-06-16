@@ -39,7 +39,7 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group);
-      setNewPlayerName('');
+    
       fetchPlayersByTeam(); 
     } catch (error) {
       if (error instanceof AppError) {
@@ -89,10 +89,10 @@ export function Players() {
       <HeaderList>
         <FlatList
           data={['Time A', 'Time B', 'Time C']}
-          keyExtractor={item => item}
+          keyExtractor={item => item.name}
           renderItem={({ item }) => (
             <Filter
-              title={item}
+              title={item.name}
               isActive={item === team}
               onPress={() => setTeam(item)}
             />

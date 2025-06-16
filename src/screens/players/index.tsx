@@ -39,8 +39,10 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group);
-    
+
+      setNewPlayerName('')
       fetchPlayersByTeam(); 
+
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert('Nova Pessoa', error.message);

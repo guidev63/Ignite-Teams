@@ -5,7 +5,7 @@ import { ButtonIcon } from '@components/ButtonIcon';
 import { Input } from '@components/input/input';
 import { Filter } from '@components/Filter';
 import { Alert, FlatList } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { PlayerCard } from '@components/PlayerCard';
 import { ListEmpty } from '@components/ListEmpty';
 import { Button } from '@components/Button';
@@ -29,7 +29,7 @@ export function Players() {
 
   async function handleAddPlayer() {
     if (newPlayerName.trim().length === 0) {
-      return Alert.alert('Nova Pessoa', 'Informe o nome da Pessoa para Adicionar.');
+      return Alert.alert('Nova Pessoa', 'Informe o Nome da Pessoa Para Adicionar.');
     }
 
     const newPlayer = {
@@ -40,8 +40,8 @@ export function Players() {
     try {
       await playerAddByGroup(newPlayer, group);
 
-      setNewPlayerName('')
-      fetchPlayersByTeam(); 
+      setNewPlayerName('');
+      fetchPlayersByTeam();
 
     } catch (error) {
       if (error instanceof AppError) {
@@ -59,7 +59,7 @@ export function Players() {
       setPlayers(playersByTeam);
     } catch (error) {
       console.log(error);
-      Alert.alert('Pessoas', 'Não Foi possível Carregar as pessoas do time Selecionado.');
+      Alert.alert('Pessoas', 'Não Foi possível Carregar as Pessoas do Time Selecionado.');
     }
   }
 
@@ -72,14 +72,14 @@ export function Players() {
       <Header showBackButton />
       <Highlight
         title={group}
-        subtitle="Adicione a galera e separe os times"
+        subtitle="Adicione a Galera e Separe os Times"
       />
 
       <Form>
         <Input
           onChangeText={setNewPlayerName}
           value={newPlayerName}
-          placeholder="Nome da pessoa"
+          placeholder="Nome da Pessoa"
           autoCorrect={false}
         />
         <ButtonIcon

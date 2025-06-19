@@ -36,7 +36,7 @@ export function Groups() {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("Use Effect executou");
+      console.log("Use Effect Executou");
       fetchGroups();
     }, [])
   );
@@ -46,7 +46,7 @@ export function Groups() {
       <Header />
       <Highlight
         title="Turmas"
-        subtitle="Jogue com a Sua Turma"
+        subtitle="Jogue com A Sua Turma"
       />
 
       <FlatList
@@ -60,7 +60,7 @@ export function Groups() {
         )}
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={() => (
-          <ListEmpty message="Que Tal Cadastrar a Primeira Yurma?" />
+          <ListEmpty message="Que Tal Cadastrar a Primeira Turma?" />
         )}
         showsHorizontalScrollIndicator={false}
       />

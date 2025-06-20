@@ -17,7 +17,7 @@ export function NewGroup() {
   async function handleNew() {
     try {
       if (group.trim().length === 0) {
-        return Alert.alert('Novo Grupo', 'Informe o Nome da turma.');
+        return Alert.alert('Novo Grupo', 'Informe o Nome da Turma.');
       }
 
       await groupCreate(group);
@@ -42,7 +42,7 @@ export function NewGroup() {
 
         <Highlight
           title="Nova Turma"
-          subtitle="Crie A Turma Para Adicionar as Pessoas"
+          subtitle="Crie A Turma Para Adicionar As Pessoas"
         />
 
         <Input

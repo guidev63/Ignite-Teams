@@ -14,6 +14,7 @@ import { AppError } from '@utils/AppError';
 import { playerAddByGroup } from 'src/Storage/player/playerAddByGroup';
 import { playersGetByGroupAndTeam } from 'src/Storage/player/playersGetByAndTeam';
 import { PlayerStorageDTO } from 'src/Storage/player/PlayerStorageDTO';
+import { playerRemoveByGroup } from 'src/Storage/player/playerRemoveByGroup';
 
 type RouteParams = {
   group: string;
@@ -27,9 +28,7 @@ export function Players() {
   const route = useRoute();
   const { group } = route.params as RouteParams;
 
-   const newPlayerNameInputRef = useRef<TextInput>(null);
-
-
+  const newPlayerNameInputRef = useRef<TextInput>(null);
 
   async function handleAddPlayer() {
     if (newPlayerName.trim().length === 0) {
@@ -42,13 +41,12 @@ export function Players() {
     };
 
     try {
-      await playerAddByGroup(newPlayer,group);
+      await playerAddByGroup(newPlayer, group);
 
       newPlayerNameInputRef.current?.blur();
 
       setNewPlayerName('');
       fetchPlayersByTeam();
-
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert('Nova Pessoa', error.message);
@@ -69,6 +67,16 @@ export function Players() {
     }
   }
 
+  async function handleRemovePlayer(playerName: string) {
+    try {
+      await playerRemoveByGroup(playerName, group);
+      fetchPlayersByTeam();
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Remover Pessoa', 'Não foi possível remover essa pessoa.');
+    }
+  }
+
   useEffect(() => {
     fetchPlayersByTeam();
   }, [team]);
@@ -83,11 +91,13 @@ export function Players() {
 
       <Form>
         <Input
-           inputRef={newPlayerNameInputRef}
+          inputRef={newPlayerNameInputRef}
           onChangeText={setNewPlayerName}
           value={newPlayerName}
           placeholder="Nome Da Pessoa"
           autoCorrect={false}
+          onSubmitEditing={handleAddPlayer}
+          returnKeyType='done'
         />
         <ButtonIcon
           icon="add"
@@ -98,10 +108,10 @@ export function Players() {
       <HeaderList>
         <FlatList
           data={['Time A', 'Time B', 'Time C']}
-          keyExtractor={item => item.name}
+          keyExtractor={item => item}
           renderItem={({ item }) => (
             <Filter
-              title={item.name}
+              title={item}
               isActive={item === team}
               onPress={() => setTeam(item)}
             />
@@ -119,7 +129,7 @@ export function Players() {
         renderItem={({ item }) => (
           <PlayerCard
             name={item.name}
-            onRemove={() => { }}
+            onRemove={() => handleRemovePlayer(item.name)}
           />
         )}
         ListEmptyComponent={() => (

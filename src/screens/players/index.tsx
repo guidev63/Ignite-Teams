@@ -15,20 +15,22 @@ import { playerAddByGroup } from 'src/Storage/player/playerAddByGroup';
 import { playersGetByGroupAndTeam } from 'src/Storage/player/playersGetByAndTeam';
 import { PlayerStorageDTO } from 'src/Storage/player/PlayerStorageDTO';
 import { playerRemoveByGroup } from 'src/Storage/player/playerRemoveByGroup';
+import { Loading } from '@components/Loading';
 
 type RouteParams = {
   group: string;
 };
 
 export function Players() {
+  const [isLoading, setIsLoading] = useState(true);
   const [newPlayerName, setNewPlayerName] = useState('');
   const [team, setTeam] = useState('Time A');
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
 
+  const newPlayerNameInputRef = useRef<TextInput>(null);
+
   const route = useRoute();
   const { group } = route.params as RouteParams;
-
-  const newPlayerNameInputRef = useRef<TextInput>(null);
 
   async function handleAddPlayer() {
     if (newPlayerName.trim().length === 0) {
@@ -42,9 +44,7 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group);
-
       newPlayerNameInputRef.current?.blur();
-
       setNewPlayerName('');
       fetchPlayersByTeam();
     } catch (error) {
@@ -59,8 +59,10 @@ export function Players() {
 
   async function fetchPlayersByTeam() {
     try {
+      setIsLoading(true);
       const playersByTeam = await playersGetByGroupAndTeam(group, team);
       setPlayers(playersByTeam);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
       Alert.alert('Pessoas', 'Não Foi possível Carregar as Pessoas do Time Selecionado.');
@@ -97,7 +99,7 @@ export function Players() {
           placeholder="Nome Da Pessoa"
           autoCorrect={false}
           onSubmitEditing={handleAddPlayer}
-          returnKeyType='done'
+          returnKeyType="done"
         />
         <ButtonIcon
           icon="add"
@@ -123,28 +125,34 @@ export function Players() {
         </NumberOfPlayers>
       </HeaderList>
 
-      <FlatList
-        data={players}
-        keyExtractor={(item) => item.name}
-        renderItem={({ item }) => (
-          <PlayerCard
-            name={item.name}
-            onRemove={() => handleRemovePlayer(item.name)}
-          />
-        )}
-        ListEmptyComponent={() => (
-          <ListEmpty message="Não Há Pessoas Nesse Time." />
-        )}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[
-          { paddingBottom: 100 },
-          players.length === 0 && { flex: 1 },
-        ]}
-      />
+      {
+      !isLoading ? (
+        <Loading />
+       ) : (
+        <FlatList
+          data={players}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <PlayerCard
+              name={item.name}
+              onRemove={() => handleRemovePlayer(item.name)}
+            />
+          )}
+          ListEmptyComponent={() => (
+            <ListEmpty message="Não Há Pessoas Nesse Time." />
+          )}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[
+            { paddingBottom: 100 },
+            players.length === 0 && { flex: 1 },
+          ]}
+        />
+      )}
 
       <Button
         title="Remover Turma"
         type="SECONDARY"
+        onPress={() => Alert.alert('Função não implementada')}
       />
     </Container>
   );

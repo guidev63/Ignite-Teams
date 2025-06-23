@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { FlatList } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 import { Button } from '@components/Button';
 import { ListEmpty } from '@components/ListEmpty';
 import { Header } from '@components/Header';
@@ -12,7 +12,7 @@ import { groupsGetAll } from 'src/Storage/group/groupsGetAll';
 import { Filter } from '@components/Filter';
 
 export function Groups() {
-
+  const [isLoading, setIsLoading] = useState(true);
   const [groups, setGroups] = useState<string[]>([]);
   const navigation = useNavigation();
 
@@ -23,15 +23,18 @@ export function Groups() {
   async function fetchGroups() {
     try {
       const data = await groupsGetAll();
+      setIsLoading(true)
       const uniqueData = Array.from(new Set(data));
       setGroups(uniqueData);
     } catch (error) {
       console.log(error);
+      Alert.alert('Turmas', 'Não Foi Prossivel Careegar as Turmas')
     }
   }
 
-  function handleOpenGroup(group: string) {
-    navigation.navigate('players', { group });
+  function handleOpenGroup(group:string){
+
+    navigation.navigate('players',{group});
   }
 
   useFocusEffect(
@@ -53,9 +56,9 @@ export function Groups() {
         data={groups}
         keyExtractor={(item, index) => `${item}-${index}`} // garante chave única
         renderItem={({ item }) => (
-          <GroupCard 
-            title={item} 
-            onPress={() => handleOpenGroup(item)} 
+          <GroupCard
+            title={item}
+            onPress={() => handleOpenGroup(item)}
           />
         )}
         contentContainerStyle={groups.length === 0 && { flex: 1 }}

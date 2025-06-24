@@ -29,6 +29,8 @@ export function Groups() {
     } catch (error) {
       console.log(error);
       Alert.alert('Turmas', 'Não Foi Prossivel Careegar as Turmas')
+    }finally{
+       setIsLoading(false);
     }
   }
 

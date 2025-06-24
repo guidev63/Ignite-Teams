@@ -52,7 +52,7 @@ export function Players() {
         Alert.alert('Nova Pessoa', error.message);
       } else {
         console.log(error);
-        Alert.alert('Nova Pessoa', 'Não foi Possível Adicionar.');
+        Alert.alert('Nova Pessoa', 'Não Foi Possível Adicionar.');
       }
     }
   }
@@ -62,10 +62,11 @@ export function Players() {
       setIsLoading(true);
       const playersByTeam = await playersGetByGroupAndTeam(group, team);
       setPlayers(playersByTeam);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      Alert.alert('Pessoas', 'Não Foi possível Carregar as Pessoas do Time Selecionado.');
+      Alert.alert('Pessoas', 'Não Foi Possível Carregar As Pessoas do Time Selecionado.');
+    }finally {
+      setIsLoading(false);
     }
   }
 
@@ -75,7 +76,7 @@ export function Players() {
       fetchPlayersByTeam();
     } catch (error) {
       console.log(error);
-      Alert.alert('Remover Pessoa', 'Não foi possível remover essa pessoa.');
+      Alert.alert('Remover Pessoa', 'Não foi possível Remover Essa pessoa.');
     }
   }
 
@@ -150,7 +151,7 @@ export function Players() {
       )}
 
       <Button
-        title="Remover Turma"
+        title="Remover turma"
         type="SECONDARY"
         onPress={() => Alert.alert('Função não implementada')}
       />
